@@ -4,8 +4,7 @@ void mostrarestructuraLSO(LSO *lista);
 int Lectura_datos(LSO *lso);
 int main() {
     LSO lso;
-    lso.contador=  0;
-
+    initLSO(&lso);
     Lectura_datos(&lso);
 
    mostrarestructuraLSO(&lso);
@@ -36,7 +35,7 @@ int Lectura_datos(LSO *lso) {
             if (fgets(aux.telefono, sizeof(aux.telefono), fp) == NULL) break;
             aux.telefono[strcspn(aux.telefono, "\n")] = '\0';
 
-             AltaLSO(lso, aux);
+             altaLSO(lso, aux);
         }
 
         // Cerrar el archivo
