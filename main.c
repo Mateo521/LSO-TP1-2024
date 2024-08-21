@@ -2,14 +2,84 @@
 #include "LSO.h"
 void mostrarestructuraLSO(LSO *lista);
 int Lectura_datos(LSO *lso);
-int main() {
-    LSO lso;
-    initLSO(&lso);
-    Lectura_datos(&lso);
+void insertarPrestador(LSO *lista);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-   mostrarestructuraLSO(&lso);
+int main() {
+    LSO lista;
+    initLSO(&lista);
+    Lectura_datos(&lista);
+    int resp=-1;
+    Prestador p;
+    char dniAux[9],nombre_y_apellidoAux[80], serviciosAux[120], domicilioAux[80], mailAux[50], telefonoAux[30];
+
+    do {
+        printf("LISTA SECUENCIAL ORDENADA\n");
+        printf("MENU\n");
+        printf("1.Ingresar Prestador\n");
+        printf("2.Eliminar Prestador\n");
+        printf("3.Mostrar Lista de Prestadores\n");
+        printf("4.Modificar Prestador\n");\
+        printf("5.Consultar Prestador\n");
+        printf("6.Memorizacion Previa\n");
+        printf("7.Salir\n");
+        printf("Inserte la operacion a realizar: ");
+        scanf("%d",&resp);
+
+        switch (resp) {
+            case 1: insertarPrestador(&lista);
+        }
+    }while(resp!=7);
+
+
+
+   mostrarestructuraLSO(&lista);
    return 0;
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void insertarPrestador(LSO *lista) {
+    Prestador p;
+    char dniAux[9],nombre_y_apellidoAux[80], serviciosAux[120], domicilioAux[80], mailAux[50], telefonoAux[30];
+    int pos=0, exito=-1;
+
+        printf("Ingresar DNI:");
+        scanf("%s",dniAux);
+        fflush(stdin);
+        printf("Ingrese el nombre y apellido\n");
+        scanf("%ld",&nombre_y_apellidoAux);
+        fflush(stdin);
+        printf("Ingrese el Servicio\n");
+        scanf("%[^\n]s",serviciosAux);
+        fflush(stdin);
+        printf("Ingrese el Domicilio\n");
+        scanf("%[^\n]s",domicilioAux);
+        fflush(stdin);
+        printf("Ingrese el Email\n");
+        scanf("%ld",&mailAux);
+        fflush(stdin);
+        printf("Ingrese el Telefono\n");
+        scanf("%[^\n]s",telefonoAux);
+        fflush(stdin);
+
+        strcpy(p.dni,dniAux);
+        strcpy(p.nombre_y_apellido,nombre_y_apellidoAux);
+        strcpy(p.servicios,serviciosAux);
+        strcpy(p.domicilio,domicilioAux);
+        strcpy(p.mail,mailAux);
+        strcpy(p.telefono,telefonoAux);
+
+        exito=altaLSO(lista,p);
+        if(exito) {
+            printf("Prestador insertado. Cantidad de prestadores: %d \n", lista->contador);
+        }else if(exito == 0) {
+            printf("EL prestador ya se encuentra en la lista\n");
+        }else {
+            printf("Lista llena. %d Prestadores cargados\n",lista->contador);
+        }
+}
+
+
 int Lectura_datos(LSO *lso) {
     Prestador aux;
     FILE *fp;

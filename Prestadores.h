@@ -8,7 +8,7 @@
 #define MAX_Envios 300
 
 typedef struct {
-    char dni;
+    char dni[9];
     char nombre_y_apellido[80];
     char servicios[120];
     char domicilio[80];
