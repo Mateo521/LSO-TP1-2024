@@ -1,14 +1,17 @@
 #include <stdio.h>
 #include "LSO.h"
-void mostrarestructuraLSO(LSO *lista);
-int Lectura_datos(LSO *lso);
+int lecturaDatos(LSO *lso);
 void insertarPrestador(LSO *lista);
+void eliminarPrestador(LSO *lista);
+void mostrarListaPrestador(LSO *lista);
+void modificarPrestador(LSO *lista);
+void consultarPrestador(LSO *lista);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int main() {
     LSO lista;
     initLSO(&lista);
-    Lectura_datos(&lista);
+    lecturaDatos(&lista);
     int resp=-1;
     Prestador p;
     char dniAux[9],nombre_y_apellidoAux[80], serviciosAux[120], domicilioAux[80], mailAux[50], telefonoAux[30];
@@ -26,14 +29,26 @@ int main() {
         printf("Inserte la operacion a realizar: ");
         scanf("%d",&resp);
 
-        switch (resp) {
+        switch(resp) {
             case 1: insertarPrestador(&lista);
+                break;
+            case 2: eliminarPrestador(&lista);
+                break;
+            case 3: mostrarListaPrestador(&lista);
+                break;
+            case 4: modificarPrestador(&lista);
+                break;
+            case 5: consultarPrestador(&lista);
+                break;
+            case 6: lecturaDatos(&lista);
+                break;
+            case 7: resp=7;
+                break;
+            default: printf("Opcion no valida\n");
+                break;
         }
+        system("cls");
     }while(resp!=7);
-
-
-
-   mostrarestructuraLSO(&lista);
    return 0;
 }
 
@@ -80,7 +95,7 @@ void insertarPrestador(LSO *lista) {
 }
 
 
-int Lectura_datos(LSO *lso) {
+int lecturaDatos(LSO *lso) {
     Prestador aux;
     FILE *fp;
     if ((fp = fopen("C:/ruta/absoluta/Prestadores.txt", "r")) == NULL) {
@@ -115,7 +130,7 @@ int Lectura_datos(LSO *lso) {
 }
 
 
-void mostrarestructuraLSO(LSO *lista)
+void mostrarListaPrestador(LSO *lista)
 {
     int i;
     for (i = 0; i < lista->contador; i++)

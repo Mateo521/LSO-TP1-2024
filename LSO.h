@@ -31,7 +31,6 @@ int localizarLSO(LSO *lista, int *pos, char dni_x[]) {
 
 int altaLSO(LSO *lista, Prestador prestador) {
     if (lista->contador >= MAX_prestadores) {
-        printf("Error: Limite maximo de prestadores alcanzado.\n");
         return 2;
     }
     int pos=0, i=0;
