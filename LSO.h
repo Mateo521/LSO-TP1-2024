@@ -21,7 +21,7 @@ int localizarLSO(LSO *lista, int *pos, char dni_x[]) {
         i++;
     }
     *pos = i;
-    if (i < lista->contador && strcmp(lista->prestador[i].dni, "*") != 0) {
+    if (i < lista->contador && strcmp(lista->prestador[i].dni, MasInfinito) != 0) {
         return 1;
     } else {
         return 0;
@@ -35,7 +35,7 @@ int altaLSO(LSO *lista, Prestador prestador) {
     }
     int pos=0, i=0;
     if (!localizarLSO(lista, &pos, prestador.dni)) {
-        for (i = lista->contador - 1; i >= pos; i--) {
+        for (i = lista->contador; i >= pos; i--) {
             lista->prestador[i + 1] = lista->prestador[i];
         }
         lista->prestador[pos] = prestador;
@@ -46,9 +46,9 @@ int altaLSO(LSO *lista, Prestador prestador) {
     }
 }
 
-int bajaLSO(LSO *lista, Prestador prestador) {
+int bajaLSO(LSO *lista, char dni_x[]) {
     int pos = 0, resp=0 , i=0;
-    if(localizarLSO(lista, &pos,prestador.dni)) {
+    if(localizarLSO(lista, &pos,dni_x)) {
         printf("Prestador N %d \n",pos+1);
         printf("DNI: %s \n",lista->prestador[pos].dni);
         printf("Nombre y Apellido: %s\n", lista->prestador[pos].nombre_y_apellido);
@@ -63,7 +63,6 @@ int bajaLSO(LSO *lista, Prestador prestador) {
                 lista->prestador[i] = lista->prestador[i+1];
             }
             lista->contador --;
-            printf("Prestador eliminado con exito. Cantidad de prestadores: %d \n", lista->contador);
             return 1;
         }else {
             return 0;
