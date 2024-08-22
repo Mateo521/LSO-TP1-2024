@@ -1,14 +1,17 @@
 //
 // Created by Usuario on 16/8/2024.
 //
+#ifndef LSO_TP1_2024_LSO_H
+#define LSO_TP1_2024_LSO_H
+#include "Prestadores.h"
 #define MAX_prestadores 111 ///CONSULTAR SI AGG UN LUGAR MAS PARA EL INFINITO
 #define MasInfinito "99999999"
-#ifndef LSO_TP1_2024_LSO_H
-#include "Prestadores.h"
+
+
 typedef struct {
     Prestador prestador [MAX_prestadores];
     int contador;
-   }LSO;
+}LSO;
 
 void initLSO(LSO *lso) {
     lso->contador = 0;
@@ -16,12 +19,14 @@ void initLSO(LSO *lso) {
 }
 
 int localizarLSO(LSO *lista, int *pos, char dni_x[]) {
-    int i = 0;
-    while ( i <= lista->contador && strcmp(lista->prestador[i].dni,MasInfinito) != 0  && strcmp(lista->prestador[i].dni,dni_x) < 0) { ///CONSULTAR SOBRE CONDICION "< MAX"
-        i++;
+    if(lista->contador == 0) {
+        return 0;
     }
-    *pos = i;
-    if (i < lista->contador && strcmp(lista->prestador[i].dni, MasInfinito) != 0) {
+
+    while ( (*pos) <= lista->contador && strcmp(lista->prestador[(*pos)].dni,MasInfinito) != 0  && strcmp(lista->prestador[(*pos)].dni,dni_x) < 0) { ///CONSULTAR SOBRE CONDICION "< MAX"
+        (*pos)++;
+    }
+    if (strcmp(lista->prestador[(*pos)].dni, MasInfinito) != 0 && strcmp(lista->prestador[(*pos)].dni,dni_x) == 0) {
         return 1;
     } else {
         return 0;
@@ -34,9 +39,9 @@ int altaLSO(LSO *lista, Prestador prestador) {
         return 2;
     }
     int pos=0, i=0;
-    if (!localizarLSO(lista, &pos, prestador.dni)) {
-        for (i = lista->contador; i >= pos; i--) {
-            lista->prestador[i + 1] = lista->prestador[i];
+    if (!(localizarLSO(lista, &pos, prestador.dni))) {
+        for (i = (lista->contador+1); i > pos; i--) {
+            lista->prestador[i] = lista->prestador[i - 1];
         }
         lista->prestador[pos] = prestador;
         lista->contador++;
@@ -56,10 +61,10 @@ int bajaLSO(LSO *lista, char dni_x[]) {
         printf("Domicilio: %s\n", lista->prestador[pos].domicilio);
         printf("Email: %s\n", lista->prestador[pos].mail);
         printf("Telefono: %s\n", lista->prestador[pos].telefono);
-        printf("Desea eliminar este prestador? \n 1) Si\n 0)No\n Ingrese:");
+        printf("Desea eliminar este prestador? \n 1)Si\n 0)No\n Ingrese:");
         scanf("%d", &resp);
         if (resp == 1) {
-            while(i=pos, i<= lista->contador, i++) {
+            for(i=pos; i<= lista->contador; i++) {
                 lista->prestador[i] = lista->prestador[i+1];
             }
             lista->contador --;
@@ -73,10 +78,10 @@ int bajaLSO(LSO *lista, char dni_x[]) {
 int modificarLSO(LSO *lista, char dni_x[]){
     int pos=0,fin=0;
     char nombre_y_apellidoAux[80], serviciosAux[120], domicilioAux[80], mailAux[50], telefonoAux[30];
-    if (localizarLSO(lista,&pos,dni_x)){
-        do{
-            printf("Prestador N: %d \n",pos+1);
-            printf("DNI: %s \n",lista->prestador[pos].dni);
+    do{
+        if (localizarLSO(lista,&pos,dni_x)){ ///SACAR ESTO AFUERA O NO
+            printf("*********Prestador N: %d \n",pos+1);
+            printf("***DNI: %s \n",lista->prestador[pos].dni);
             printf("<1>Nombre y Apellido: %s\n", lista->prestador[pos].nombre_y_apellido);
             printf("<2>Servicios: %s\n", lista->prestador[pos].servicios);
             printf("<3>Domicilio: %s\n", lista->prestador[pos].domicilio);
@@ -90,7 +95,7 @@ int modificarLSO(LSO *lista, char dni_x[]){
                 case 1:
                     system("cls");
                     printf("Ingrese el nuevo nombre y apellido\n");
-                    scanf("%ld",&nombre_y_apellidoAux);
+                    scanf("%[^\n]s",nombre_y_apellidoAux);
                     strcpy(lista->prestador->nombre_y_apellido,nombre_y_apellidoAux);
                     break;
                 case 2:
@@ -108,7 +113,7 @@ int modificarLSO(LSO *lista, char dni_x[]){
                 case 4:
                     system("cls");
                     printf("Ingrese el nuevo Email\n");
-                    scanf("%ld",&mailAux);
+                    scanf("%s",&mailAux);
                     strcpy(lista->prestador->mail,mailAux);
                     break;
                 case 5:
@@ -118,6 +123,7 @@ int modificarLSO(LSO *lista, char dni_x[]){
                     strcpy(lista->prestador->telefono,telefonoAux);
                     break;
                 case 6:
+                    return 1;
                     system("cls");
                     break;
                 default:
@@ -127,12 +133,9 @@ int modificarLSO(LSO *lista, char dni_x[]){
                     getchar();
                     break;
             }
-        }while(fin !=6);
-        return 1;
-    }else{
-        return 0;
-    }
-
+        }
+    }while(fin !=6);
+    return 0;
 }
 
 Prestador evocarLSO(LSO *lista, char dni_x[], int *exito) {
@@ -143,5 +146,5 @@ Prestador evocarLSO(LSO *lista, char dni_x[], int *exito) {
     }
 }
 
-#define LSO_TP1_2024_LSO_H
+
 #endif

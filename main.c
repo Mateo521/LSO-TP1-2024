@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include "LSO.h"
+#include <string.h>
+
 int lecturaDatos(LSO *lso);
 void insertarPrestador(LSO *lista);
 void eliminarPrestador(LSO *lista);
@@ -90,7 +92,7 @@ void insertarPrestador(LSO *lista) {
     int pos=0, exito=-1;
 
         exito=altaLSO(lista,p);
-        if(exito) {
+        if(exito == 1) {
             printf("Prestador insertado. Cantidad de prestadores: %d \n", lista->contador);
         }else if(exito == 0) {
             printf("EL prestador ya se encuentra en la lista\n");
@@ -111,7 +113,7 @@ void eliminarPrestador(LSO *lista) {
     if(exito) {
         printf("Se elimino el prestador\n");
     }else {
-        printf("No se encontro el prestador en la lista");
+        printf("Se cancelo la eliminacion");
     }
     system("pause");
     system("cls");
@@ -147,6 +149,9 @@ void modificarPrestador(LSO *lista) {
 void consultarPrestador(LSO *lista){
     char dniAux[9];
     int exito = -1;
+    printf("Ingrese el DNI del prestador:");
+    scanf("%s",dniAux);
+    fflush(stdin);
     Prestador p = evocarLSO(lista,dniAux,&exito);
     if(exito) {
         Mostrarprestador(p);

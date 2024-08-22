@@ -4,9 +4,6 @@
 #include <ctype.h>
 
 
-
-#define MAX_Envios 300
-
 typedef struct {
     char dni[9];
     char nombre_y_apellido[80];
