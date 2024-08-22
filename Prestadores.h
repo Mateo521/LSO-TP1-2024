@@ -20,5 +20,6 @@ void Mostrarprestador(Prestador prestador) {
     printf("Servicios: %s\n", prestador.servicios);
     printf("Domicilio: %s\n", prestador.domicilio);
     printf("Email: %s\n", prestador.mail);
-    printf("Telefono: %s\n", prestador.telefono);
+    printf("Telefono: %s\n\n", prestador.telefono);
+
 }

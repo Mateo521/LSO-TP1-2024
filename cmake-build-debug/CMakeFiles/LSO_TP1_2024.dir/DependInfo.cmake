@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "J:/Uni/EDA/EDA-4ta Cursada/TP1/LSO-TP1-2024/main.c" "CMakeFiles/LSO_TP1_2024.dir/main.c.obj" "gcc" "CMakeFiles/LSO_TP1_2024.dir/main.c.obj.d"
+  "C:/Users/mateo/Desktop/LSO-TP1-2024/main.c" "CMakeFiles/LSO_TP1_2024.dir/main.c.obj" "gcc" "CMakeFiles/LSO_TP1_2024.dir/main.c.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
