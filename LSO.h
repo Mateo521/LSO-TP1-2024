@@ -67,7 +67,7 @@ int bajaLSO(LSO *lista, char dni_x[]) {
         printf("Desea eliminar este prestador? \n 1)Si\n 0)No\n Ingrese:");
         scanf("%d", &resp);
         if (resp == 1) {
-            for(i=pos; i<= lista->contador; i++) {
+            for(i=pos; i< lista->contador; i++) {
                 lista->prestador[i] = lista->prestador[i+1];
             }
             lista->contador --;
