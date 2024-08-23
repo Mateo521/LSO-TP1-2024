@@ -94,36 +94,37 @@ int modificarLSO(LSO *lista, char dni_x[]){
             printf("Que desea modificar <1-6> \n");
             scanf("%d",&fin);
             fflush(stdin);
+
             switch(fin){
                 case 1:
                     system("cls");
                     printf("Ingrese el nuevo nombre y apellido\n");
                     scanf("%[^\n]s",nombre_y_apellidoAux);
-                    strcpy(lista->prestador->nombre_y_apellido,nombre_y_apellidoAux);
+                    strcpy(lista->prestador[pos].nombre_y_apellido,nombre_y_apellidoAux);
                     break;
                 case 2:
                     system("cls");
                     printf("Ingrese el nuevo Servicio\n");
                     scanf("%[^\n]s",serviciosAux);
-                strcpy(lista->prestador->servicios,serviciosAux);
+                strcpy(lista->prestador[pos].servicios,serviciosAux);
                     break;
                 case 3:
                     system("cls");
                     printf("Ingrese el nuevo Domicilio\n");
                     scanf("%[^\n]s",domicilioAux);
-                strcpy(lista->prestador->domicilio,domicilioAux);
+                strcpy(lista->prestador[pos].domicilio,domicilioAux);
                     break;
                 case 4:
                     system("cls");
                     printf("Ingrese el nuevo Email\n");
                     scanf("%s",&mailAux);
-                    strcpy(lista->prestador->mail,mailAux);
+                    strcpy(lista->prestador[pos].mail,mailAux);
                     break;
                 case 5:
                     system("cls");
                     printf("Ingrese el nuevo Telefono\n");
                     scanf("%[^\n]s",telefonoAux);
-                    strcpy(lista->prestador->telefono,telefonoAux);
+                    strcpy(lista->prestador[pos].telefono,telefonoAux);
                     break;
                 case 6:
                     return 1;
