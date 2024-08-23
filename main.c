@@ -166,12 +166,12 @@ int lecturaDatos(LSO *lso) {
     Prestador aux;
     FILE *fp;
 
-    if ((fp = fopen("C:/Users/mateo/Desktop/LSO-TP1-2024/Prestadores.txt", "r")) == NULL) {
+    if ((fp = fopen("C:/Users/Usuario/Desktop/LSO-TP1-2024/Prestadores.txt", "r")) == NULL) {
         printf("Hubo un error con la lectura del archivo.\n");
         return 0;  // Error al abrir el archivo
     }
 
-    while (1) {
+    while (!feof(fp)) {
         // Leer DNI
         if (fscanf(fp, "%s\n", &aux.dni) != 1) break;
         // Leer Nombre y Apellido
