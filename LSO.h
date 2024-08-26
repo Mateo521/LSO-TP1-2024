@@ -16,6 +16,7 @@ typedef struct {
 void initLSO(LSO *lso) {
     lso->contador = 0;
     for (int i = 0; i < MAX_prestadores; i++) {
+        //solo para test
         strcpy(lso->prestador[i].dni, MasInfinito); // Inicializa todas las posiciones con MasInfinito
     }
 }
