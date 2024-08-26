@@ -1,10 +1,8 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/LSO_TP1_2024.dir/main.c.obj"
-  "CMakeFiles/LSO_TP1_2024.dir/main.c.obj.d"
-  "LSO_TP1_2024.exe"
-  "LSO_TP1_2024.exe.manifest"
+  "CMakeFiles/LSO_TP1_2024.dir/main.c.o"
+  "CMakeFiles/LSO_TP1_2024.dir/main.c.o.d"
+  "LSO_TP1_2024"
   "LSO_TP1_2024.pdb"
-  "libLSO_TP1_2024.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.

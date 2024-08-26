@@ -2,10 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "LSO_TP1_2024.exe"
-		},
-		{
-			"path" : "LSO_TP1_2024.pdb"
+			"path" : "LSO_TP1_2024"
 		}
 	],
 	"backtrace" : 1,
@@ -52,7 +49,7 @@
 			[
 				{
 					"backtrace" : 2,
-					"path" : "C:/Users/Usuario/Desktop/LSO-TP1-2024/."
+					"path" : "/home/mateo/LSO-TP1-2024/."
 				}
 			],
 			"language" : "C",
@@ -82,16 +79,12 @@
 			{
 				"fragment" : "",
 				"role" : "flags"
-			},
-			{
-				"fragment" : "-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32",
-				"role" : "libraries"
 			}
 		],
 		"language" : "C"
 	},
 	"name" : "LSO_TP1_2024",
-	"nameOnDisk" : "LSO_TP1_2024.exe",
+	"nameOnDisk" : "LSO_TP1_2024",
 	"paths" : 
 	{
 		"build" : ".",

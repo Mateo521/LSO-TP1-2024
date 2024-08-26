@@ -5,9 +5,7 @@
 #define LSO_TP1_2024_LSO_H
 #include "Prestadores.h"
 #define MAX_prestadores 111 ///CONSULTAR SI AGG UN LUGAR MAS PARA EL INFINITO
-#define MasInfinito "9999999"
-
-
+#define MasInfinito "999999999"
 typedef struct {
     Prestador prestador [MAX_prestadores];
     int contador;
@@ -15,22 +13,17 @@ typedef struct {
 
 void initLSO(LSO *lso) {
     lso->contador = 0;
-    for (int i = 0; i < MAX_prestadores; i++) {
-        //solo para test
-        strcpy(lso->prestador[i].dni, MasInfinito); // Inicializa todas las posiciones con MasInfinito
-    }
+        strcpy(lso->prestador[0].dni, MasInfinito);
 }
 
 int localizarLSO(LSO *lista, int *pos, char dni_x[]) {
     if(lista->contador == 0 ) {
         return 0;
     }
-
-    while ((*pos) < lista->contador && strcmp(lista->prestador[(*pos)].dni, MasInfinito) != 0 && strcmp(lista->prestador[(*pos)].dni, dni_x) < 0) {
+    while (strcmp(lista->prestador[(*pos)].dni, dni_x) < 0) {
         (*pos)++;
     }
-
-    if (strcmp(lista->prestador[(*pos)].dni, MasInfinito) != 0 && strcmp(lista->prestador[(*pos)].dni,dni_x) == 0) {
+    if (strcmp(lista->prestador[(*pos)].dni,dni_x) == 0) {
         return 1;
     } else {
         return 0;
@@ -45,9 +38,13 @@ int altaLSO(LSO *lista, Prestador prestador) {
     int pos=0, i=0;
     if (!(localizarLSO(lista, &pos, prestador.dni))) {
         for (i = (lista->contador); i > pos; i--) {
+
             lista->prestador[i] = lista->prestador[i - 1];
         }
         lista->prestador[pos] = prestador;
+
+
+
         lista->contador++;
         return 1;
     } else {
