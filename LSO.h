@@ -4,8 +4,8 @@
 #ifndef LSO_TP1_2024_LSO_H
 #define LSO_TP1_2024_LSO_H
 #include "Prestadores.h"
-#define MAX_prestadores 111 ///CONSULTAR SI AGG UN LUGAR MAS PARA EL INFINITO
-#define MasInfinito "999999999"
+#define MAX_prestadores 112 ///CONSULTAR SI AGG UN LUGAR MAS PARA EL INFINITO
+#define MasInfinito "99999999"
 typedef struct {
     Prestador prestador [MAX_prestadores];
     int contador;
@@ -17,7 +17,7 @@ void initLSO(LSO *lso) {
 }
 
 int localizarLSO(LSO *lista, int *pos, char dni_x[]) {
-    if(lista->contador == 0 ) {
+    if(lista->contador == 0) {
         return 0;
     }
     while (strcmp(lista->prestador[(*pos)].dni, dni_x) < 0) {
@@ -32,10 +32,12 @@ int localizarLSO(LSO *lista, int *pos, char dni_x[]) {
 
 
 int altaLSO(LSO *lista, Prestador prestador) {
-    if (lista->contador >= MAX_prestadores) {
+    int pos=0, i=0;
+    if (lista->contador >= MAX_prestadores - 1 || strcmp(prestador.dni, MasInfinito) >= 0) {
+
         return 2;
     }
-    int pos=0, i=0;
+
     if (!(localizarLSO(lista, &pos, prestador.dni))) {
         for (i = (lista->contador); i > pos; i--) {
 
@@ -43,9 +45,15 @@ int altaLSO(LSO *lista, Prestador prestador) {
         }
         lista->prestador[pos] = prestador;
 
-
-
         lista->contador++;
+
+            strcpy(lista->prestador[lista->contador].dni, MasInfinito);
+            strcpy(lista->prestador[lista->contador].domicilio, "");
+            strcpy(lista->prestador[lista->contador].mail, "");
+            strcpy(lista->prestador[lista->contador].nombre_y_apellido, "");
+            strcpy(lista->prestador[lista->contador].servicios, "");
+            strcpy(lista->prestador[lista->contador].telefono, "");
+
         return 1;
     } else {
         return 0;
@@ -69,6 +77,7 @@ int bajaLSO(LSO *lista, char dni_x[]) {
                 lista->prestador[i] = lista->prestador[i+1];
             }
             lista->contador --;
+            strcpy(lista->prestador[lista->contador].dni, MasInfinito);
             return 1;
         }else {
             return 0;

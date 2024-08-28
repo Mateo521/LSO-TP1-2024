@@ -1,1 +1,3 @@
-/usr/bin/cc -g CMakeFiles/LSO_TP1_2024.dir/main.c.o -o LSO_TP1_2024
+"C:\Program Files\JetBrains\CLion 2024.2.0.1\bin\cmake\win\x64\bin\cmake.exe" -E rm -f CMakeFiles\LSO_TP1_2024.dir/objects.a
+C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\ar.exe qc CMakeFiles\LSO_TP1_2024.dir/objects.a @CMakeFiles\LSO_TP1_2024.dir\objects1.rsp
+C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\gcc.exe -g -Wl,--whole-archive CMakeFiles\LSO_TP1_2024.dir/objects.a -Wl,--no-whole-archive -o LSO_TP1_2024.exe -Wl,--out-implib,libLSO_TP1_2024.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\LSO_TP1_2024.dir\linkLibs.rsp
