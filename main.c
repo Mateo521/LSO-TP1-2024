@@ -97,7 +97,7 @@ void insertarPrestador(LSO *lista) {
         }else if(exito == 0) {
             printf("EL prestador ya se encuentra en la lista\n");
         }else {
-            printf("Lista llena. %d Prestadores cargados\n",lista->contador);
+            printf("Error al cargar.\n");
         }
     system("pause");
     system("cls");
@@ -124,6 +124,7 @@ void mostrarListaPrestador(LSO *lista)
     int i;
     for (i = 0; i < lista->contador; i++)
     {
+        printf("Envio nro : %d\n",i+1);
         Mostrarprestador(lista->prestador[i]);
     }
     printf("Total de %d envios\n", lista->contador);
