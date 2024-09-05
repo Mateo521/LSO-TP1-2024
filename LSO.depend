@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1725556717 source:j:\uni\eda\eda-4ta cursada\codebl\lso\lso\main.c
+	<stdio.h>
+	<stdlib.h>
+	"LSO.h"
+	<string.h>
+
+1725556871 j:\uni\eda\eda-4ta cursada\codebl\lso\lso\lso.h
+	"Prestadores.h"
+	<string.h>
+
+1725331359 j:\uni\eda\eda-4ta cursada\codebl\lso\lso\prestadores.h
+
+1725561954 source:c:\users\mateo\downloads\lso\main.c
+	<stdio.h>
+	<stdlib.h>
+	"LSO.h"
+	<string.h>
+
+1725559425 c:\users\mateo\downloads\lso\lso.h
+	"Prestadores.h"
+	<string.h>
+
+1725331359 c:\users\mateo\downloads\lso\prestadores.h
+

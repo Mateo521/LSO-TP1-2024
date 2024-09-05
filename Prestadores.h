@@ -1,11 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-
+#ifndef PRESTADORES_H_INCLUDED
+#define PRESTADORES_H_INCLUDED
 
 typedef struct {
-    char dni[9];
+    long dni;
     char nombre_y_apellido[80];
     char servicios[120];
     char domicilio[80];
@@ -15,7 +12,7 @@ typedef struct {
 
 
 void Mostrarprestador(Prestador prestador) {
-    printf("DNI: %s\n", prestador.dni);
+    printf("DNI: %ld\n", prestador.dni);
     printf("Nombre y Apellido: %s\n", prestador.nombre_y_apellido);
     printf("Servicios: %s\n", prestador.servicios);
     printf("Domicilio: %s\n", prestador.domicilio);
@@ -23,3 +20,5 @@ void Mostrarprestador(Prestador prestador) {
     printf("Telefono: %s\n\n", prestador.telefono);
 
 }
+
+#endif // PRESTADORES_H_INCLUDED

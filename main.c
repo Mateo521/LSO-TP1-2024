@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "LSO.h"
 #include <string.h>
 
@@ -28,6 +29,7 @@ int main() {
         printf("7.Salir\n");
         printf("Inserte la operacion a realizar: ");
         scanf("%d",&resp);
+        system("cls");
 
         switch(resp) {
             case 1: insertarPrestador(&lista);
@@ -55,13 +57,14 @@ int main() {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Prestador cargarPrestador() {
     Prestador p;
-    char dniAux[9],nombre_y_apellidoAux[80], serviciosAux[120], domicilioAux[80], mailAux[50], telefonoAux[30];
+    long dniAux;
+    char nombre_y_apellidoAux[80], serviciosAux[120], domicilioAux[80], mailAux[50], telefonoAux[30];
 
     printf("Ingresar DNI: ");
-    scanf("%s",dniAux);
+    scanf("%ld",&dniAux);
     fflush(stdin);
     printf("Ingrese el nombre y apellido: ");
-    scanf("%[^\n]s",&nombre_y_apellidoAux);
+    scanf("%[^\n]s",nombre_y_apellidoAux);
     fflush(stdin);
     printf("Ingrese el Servicio: ");
     scanf("%[^\n]s",serviciosAux);
@@ -77,7 +80,7 @@ Prestador cargarPrestador() {
     fflush(stdin);
     system("pause");
 
-    strcpy(p.dni,dniAux);
+    p.dni=dniAux;
     strcpy(p.nombre_y_apellido,nombre_y_apellidoAux);
     strcpy(p.servicios,serviciosAux);
     strcpy(p.domicilio,domicilioAux);
@@ -88,32 +91,44 @@ Prestador cargarPrestador() {
 }
 
 void insertarPrestador(LSO *lista) {
-    Prestador p = cargarPrestador();
-    int pos=0, exito=-1;
+    if(lista->contador >= MAX_prestadores - 1){
 
-        exito=altaLSO(lista,p);
-        if(exito == 1) {
-            printf("Prestador insertado. Cantidad de prestadores: %d \n", lista->contador);
-        }else if(exito == 0) {
-            printf("EL prestador ya se encuentra en la lista\n");
-        }else {
-            printf("Error al cargar.\n");
-        }
+
+         return 0;
+    }
+
+    Prestador p = cargarPrestador();
+    int exito=-1;
+    exito=altaLSO(lista,p);
+    if(exito == 1) {
+        printf("Prestador insertado. Cantidad de prestadores: %d \n", lista->contador);
+    }else if(exito == 0) {
+        printf("EL prestador ya se encuentra en la lista\n");
+    }else {
+        printf("El elemento que quiso ingresar, supera el limite admitido (DNI MAX 99.999.998) \n");
+    }
     system("pause");
     system("cls");
 }
 
 void eliminarPrestador(LSO *lista) {
-    int pos=0, exito=-1;
-    char dniAux[9];
+    if(lista->contador == 0){
+        printf("Error al eliminar.Lista vacia\n");
+        return;
+    }
+
+    int exito=-1;
+    long dniAux;
     printf("Ingrese el DNI del prestador:");
-    scanf("%s",dniAux);
+    scanf("%ld",&dniAux);
     fflush(stdin);
     exito=bajaLSO(lista,dniAux);
-    if(exito) {
-        printf("Se elimino el prestador\n");
+    if(exito == 1) {
+        printf("Se elimino el prestador \n");
+    }else if(exito == 0) {
+        printf("Se cancelo la eliminacion\n");
     }else {
-        printf("Se cancelo la eliminacion");
+        printf("No se encontro el elemento en la lista.\n");
     }
     system("pause");
     system("cls");
@@ -122,10 +137,18 @@ void eliminarPrestador(LSO *lista) {
 void mostrarListaPrestador(LSO *lista)
 {
     int i;
+    if(lista->contador == 0){
+        printf("Error al mostrar.Lista vacia\n");
+        return;
+    }
     for (i = 0; i < lista->contador; i++)
     {
-        printf("Envio nro : %d\n",i+1);
+        printf("Prestador nro : %d\n",i+1);
         Mostrarprestador(lista->prestador[i]);
+        if((i % 2)!= 0){
+            system("pause");
+            system("cls");
+        }
     }
     printf("Total de %d envios\n", lista->contador);
     system("pause");
@@ -133,31 +156,40 @@ void mostrarListaPrestador(LSO *lista)
 }
 
 void modificarPrestador(LSO *lista) {
-    int fin=0;
-    char dniAux[9];
+    long dniAux;
+    if(lista->contador == 0){
+        printf("Error al modificar.Lista vacia\n");
+        return;
+    }
+
     printf("Ingrese el DNI del prestador:");
-    scanf("%s",dniAux);
+    scanf("%ld",&dniAux);
     fflush(stdin);
     if(modificarLSO(lista,dniAux)) {
-        printf("Se modifico con exito");
+        printf("Modificaciones guardadas con exito\n");
     }else {
-        printf("Se cancelo la modificacion.");
+        printf("Se cancelo la modificacion.\n");
     }
     system("pause");
     system("cls");
 }
 
 void consultarPrestador(LSO *lista){
-    char dniAux[9];
+    long dniAux;
     int exito = -1;
+    if(lista->contador == 0){
+        printf("Error al consultar.Lista vacia\n");
+        return;
+    }
+
     printf("Ingrese el DNI del prestador:");
-    scanf("%s",dniAux);
+    scanf("%ld",&dniAux);
     fflush(stdin);
     Prestador p = evocarLSO(lista,dniAux,&exito);
     if(exito) {
         Mostrarprestador(p);
     }else {
-        printf("No se encontro el prestador");
+        printf("No se encontro el prestador\n");
     }
     system("pause");
     system("cls");
@@ -166,18 +198,22 @@ void consultarPrestador(LSO *lista){
 int lecturaDatos(LSO *lso) {
     Prestador aux;
     FILE *fp;
-
-    if ((fp = fopen("C:/Users/mateo/Desktop/LSO-TP1-2024/Prestadores.txt", "r")) == NULL) {
+    int rep = 0, res = 2 , cont =0;
+    if ((fp = fopen("Prestadores.txt", "r")) == NULL) {
         printf("Hubo un error con la lectura del archivo.\n");
         return 0;  // Error al abrir el archivo
     }
 
+
+
     while (!feof(fp)) {
+
+
         // Leer DNI
-        if (fscanf(fp, "%s\n", &aux.dni) != 1) break;
+        if (fscanf(fp, "%ld\n", &aux.dni) != 1) break;
         // Leer Nombre y Apellido
         if (fgets(aux.nombre_y_apellido, sizeof(aux.nombre_y_apellido), fp) == NULL) break;
-        aux.nombre_y_apellido[strcspn(aux.nombre_y_apellido, "\n")] = '\0';  // Eliminar salto de lÃ­nea al final
+        aux.nombre_y_apellido[strcspn(aux.nombre_y_apellido, "\n")] = '\0';  // Eliminar salto de línea al final
         // Leer Servicios
         if (fgets(aux.servicios, sizeof(aux.servicios), fp) == NULL) break;
         aux.servicios[strcspn(aux.servicios, "\n")] = '\0';
@@ -187,22 +223,37 @@ int lecturaDatos(LSO *lso) {
         // Leer Email
         if (fgets(aux.mail, sizeof(aux.mail), fp) == NULL) break;
         aux.mail[strcspn(aux.mail, "\n")] = '\0';
-        // Leer TelÃ©fono
+        // Leer Teléfono
         if (fgets(aux.telefono, sizeof(aux.telefono), fp) == NULL) break;
         aux.telefono[strcspn(aux.telefono, "\n")] = '\0';
+        res = altaLSO(lso, aux);
+        if(res==1)
+            cont++;
+        if(res==0)
+            rep++;
 
 
 
-        // Agregar el registro leÃ­do a la lista
-         altaLSO(lso, aux);
+
+
+
+    }
+    if(res == 2){
+
+        printf ("\nLista llena.\n");
+
     }
 
+if(cont>0)
+    printf("Se cargo %d prestador/es en la lista.\n",cont);
+if(cont > rep)
+        printf("Hubo %d prestador/es no cargado/s repetido/s\n",rep);
+
+  //
+
+
+    system("pause");
     // Cerrar el archivo
     fclose(fp);
     return 1;
 }
-
-
-
-
-
