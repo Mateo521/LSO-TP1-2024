@@ -92,9 +92,7 @@ Prestador cargarPrestador() {
 
 void insertarPrestador(LSO *lista) {
     if(lista->contador >= MAX_prestadores - 1){
-
-
-         return 0;
+         return;
     }
 
     Prestador p = cargarPrestador();
@@ -114,6 +112,7 @@ void insertarPrestador(LSO *lista) {
 void eliminarPrestador(LSO *lista) {
     if(lista->contador == 0){
         printf("Error al eliminar.Lista vacia\n");
+        system("pause");
         return;
     }
 
@@ -207,8 +206,6 @@ int lecturaDatos(LSO *lso) {
 
 
     while (!feof(fp)) {
-
-
         // Leer DNI
         if (fscanf(fp, "%ld\n", &aux.dni) != 1) break;
         // Leer Nombre y Apellido
@@ -227,33 +224,25 @@ int lecturaDatos(LSO *lso) {
         if (fgets(aux.telefono, sizeof(aux.telefono), fp) == NULL) break;
         aux.telefono[strcspn(aux.telefono, "\n")] = '\0';
         res = altaLSO(lso, aux);
-        if(res==1)
+
+        if(res==1)//llevar la cuenta de cuantos se cargaron en la mmorizacion
             cont++;
-        if(res==0)
+
+        if(res==0)//llevar la cuenta de cuantos no se cargaron por estar repetidos o no respetar los limites
             rep++;
-
-
-
-
-
 
     }
     if(res == 2){
-
-        printf ("\nLista llena.\n");
+        printf ("Lista llena.\n");
 
     }
 
-if(cont>0)
-    printf("Se cargo %d prestador/es en la lista.\n",cont);
-if(cont > rep)
+    if(cont>0)
+        printf("Se cargo %d prestador/es en la lista.\n",cont);
+    if(cont > rep)
         printf("Hubo %d prestador/es no cargado/s repetido/s\n",rep);
 
-  //
-
-
     system("pause");
-    // Cerrar el archivo
     fclose(fp);
     return 1;
 }

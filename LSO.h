@@ -39,15 +39,14 @@ int altaLSO(LSO *lista, Prestador prestador) {
     }
 
     if (!(localizarLSO(lista, &pos, prestador.dni))) {
-        for (i = (lista->contador); i >= pos; i--) {
+        for (i = (lista->contador+1); i >= pos; i--) {
             lista->prestador[i] = lista->prestador[i - 1];
         }
         lista->prestador[pos] = prestador;
 
         lista->contador++;
 
-        lista->prestador[lista->contador].dni = MasInfinito;
-       // system("pause");
+        //lista->prestador[lista->contador].dni = MasInfinito;
         return 1;
     } else {
         return 0;
