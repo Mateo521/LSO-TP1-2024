@@ -18,6 +18,7 @@ int main() {
     int resp=-1;
 
     do {
+        printf("%ld\n",lista.prestador[lista.contador].dni);
         printf("LISTA SECUENCIAL ORDENADA\n");
         printf("MENU\n");
         printf("1.Ingresar Prestador\n");
@@ -92,9 +93,10 @@ Prestador cargarPrestador() {
 
 void insertarPrestador(LSO *lista) {
     if(lista->contador >= MAX_prestadores - 1){
-         return;
+        printf ("Lista llena.\n");
+        system("pause");
+        return;
     }
-
     Prestador p = cargarPrestador();
     int exito=-1;
     exito=altaLSO(lista,p);
@@ -120,6 +122,11 @@ void eliminarPrestador(LSO *lista) {
     long dniAux;
     printf("Ingrese el DNI del prestador:");
     scanf("%ld",&dniAux);
+    if(dniAux >= MasInfinito){
+        printf("Ingreso un dni mayor al limite. Limite %ld",MasInfinito);
+        system("pause");
+        return;
+    }
     fflush(stdin);
     exito=bajaLSO(lista,dniAux);
     if(exito == 1) {
@@ -149,7 +156,7 @@ void mostrarListaPrestador(LSO *lista)
             system("cls");
         }
     }
-    printf("Total de %d envios\n", lista->contador);
+    printf("Total de %d prestadores\n", lista->contador);
     system("pause");
     system("cls");
 }
@@ -158,19 +165,26 @@ void modificarPrestador(LSO *lista) {
     long dniAux;
     if(lista->contador == 0){
         printf("Error al modificar.Lista vacia\n");
+        system("pause");
         return;
     }
 
     printf("Ingrese el DNI del prestador:");
     scanf("%ld",&dniAux);
-    fflush(stdin);
-    if(modificarLSO(lista,dniAux)) {
-        printf("Modificaciones guardadas con exito\n");
-    }else {
-        printf("Se cancelo la modificacion.\n");
+    if(dniAux >= MasInfinito){
+        printf("Ingreso un dni mayor al limite. Limite %ld\n",MasInfinito);
+        system("pause");
+        return;
+    }else{
+        fflush(stdin);
+        if(modificarLSO(lista,dniAux)) {
+            printf("Modificaciones guardadas con exito\n");
+        }else {
+            printf("Se cancelo la modificacion.\n");
+        }
+        system("pause");
+        system("cls");
     }
-    system("pause");
-    system("cls");
 }
 
 void consultarPrestador(LSO *lista){
@@ -180,18 +194,23 @@ void consultarPrestador(LSO *lista){
         printf("Error al consultar.Lista vacia\n");
         return;
     }
-
     printf("Ingrese el DNI del prestador:");
     scanf("%ld",&dniAux);
-    fflush(stdin);
-    Prestador p = evocarLSO(lista,dniAux,&exito);
-    if(exito) {
-        Mostrarprestador(p);
-    }else {
-        printf("No se encontro el prestador\n");
+    if(dniAux >= MasInfinito){
+        printf("Ingreso un dni mayor al limite. Limite %ld\n",MasInfinito);
+        system("pause");
+        return;
+    }else{
+        fflush(stdin);
+        Prestador p = evocarLSO(lista,dniAux,&exito);
+        if(exito) {
+            Mostrarprestador(p);
+        }else {
+            printf("No se encontro el prestador\n");
+        }
+        system("pause");
+        system("cls");
     }
-    system("pause");
-    system("cls");
 }
 
 int lecturaDatos(LSO *lso) {
@@ -200,11 +219,9 @@ int lecturaDatos(LSO *lso) {
     int rep = 0, res = 2 , cont =0;
     if ((fp = fopen("Prestadores.txt", "r")) == NULL) {
         printf("Hubo un error con la lectura del archivo.\n");
+        system("pause");
         return 0;  // Error al abrir el archivo
     }
-
-
-
     while (!feof(fp)) {
         // Leer DNI
         if (fscanf(fp, "%ld\n", &aux.dni) != 1) break;
@@ -223,25 +240,32 @@ int lecturaDatos(LSO *lso) {
         // Leer Teléfono
         if (fgets(aux.telefono, sizeof(aux.telefono), fp) == NULL) break;
         aux.telefono[strcspn(aux.telefono, "\n")] = '\0';
-        res = altaLSO(lso, aux);
-
-        if(res==1)//llevar la cuenta de cuantos se cargaron en la mmorizacion
-            cont++;
-
-        if(res==0)//llevar la cuenta de cuantos no se cargaron por estar repetidos o no respetar los limites
+        res = altaLSO(lso, aux) ;
+        switch(res){
+        case 0:
             rep++;
-
+            break;
+        case 1:
+            cont++;
+            break;
+        case 2:
+            printf ("Lista llena.\n");
+            if(cont>0)
+                printf("Se cargo %d prestador/es en la lista.\n",cont);
+            if(cont > rep)
+                printf("Hubo %d prestador/es no cargado/s repetido/s\n",rep);
+            system("pause");
+            fclose(fp);
+            return 1;
+            break;
+        case 3:
+            printf("Error. Se quiso ingresar un dato mayo al limite.(%ld)",MasInfinito);
+        }
     }
-    if(res == 2){
-        printf ("Lista llena.\n");
-
-    }
-
     if(cont>0)
         printf("Se cargo %d prestador/es en la lista.\n",cont);
     if(cont > rep)
         printf("Hubo %d prestador/es no cargado/s repetido/s\n",rep);
-
     system("pause");
     fclose(fp);
     return 1;

@@ -2,7 +2,7 @@
 #define LSO_H_INCLUDED
 #include "Prestadores.h"
 #include <string.h>
-#define MAX_prestadores 111
+#define MAX_prestadores 17
 #define MasInfinito 99999999
 
 typedef struct {
@@ -32,21 +32,17 @@ int localizarLSO(LSO *lista, int *pos, long dni_x) {
 
 int altaLSO(LSO *lista, Prestador prestador) {
     int pos = 0, i = 0;
-
-
     if (prestador.dni >= MasInfinito || lista->contador >= MAX_prestadores - 1) {
-        return 2;
+        if(lista->contador >= MAX_prestadores - 1)
+                return 2;
+        return 3;
     }
-
     if (!(localizarLSO(lista, &pos, prestador.dni))) {
         for (i = (lista->contador+1); i >= pos; i--) {
             lista->prestador[i] = lista->prestador[i - 1];
         }
         lista->prestador[pos] = prestador;
-
         lista->contador++;
-
-        //lista->prestador[lista->contador].dni = MasInfinito;
         return 1;
     } else {
         return 0;
@@ -70,7 +66,6 @@ int bajaLSO(LSO *lista, long dni_x) {
                 lista->prestador[i] = lista->prestador[i + 1];
             }
             lista->contador--;
-            //lista->prestador[lista->contador].dni = MasInfinito;
             return 1;
         } else {
             return 0;
