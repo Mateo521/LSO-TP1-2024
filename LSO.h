@@ -2,7 +2,7 @@
 #define LSO_H_INCLUDED
 #include "Prestadores.h"
 #include <string.h>
-#define MAX_prestadores 17
+#define MAX_prestadores 111
 #define MasInfinito 99999999
 
 typedef struct {
