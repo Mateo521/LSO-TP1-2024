@@ -18,7 +18,6 @@ int main() {
     int resp=-1;
 
     do {
-        printf("%ld\n",lista.prestador[lista.contador].dni);
         printf("LISTA SECUENCIAL ORDENADA\n");
         printf("MENU\n");
         printf("1.Ingresar Prestador\n");
@@ -117,13 +116,12 @@ void eliminarPrestador(LSO *lista) {
         system("pause");
         return;
     }
-
     int exito=-1;
     long dniAux;
     printf("Ingrese el DNI del prestador:");
     scanf("%ld",&dniAux);
     if(dniAux >= MasInfinito){
-        printf("Ingreso un dni mayor al limite. Limite %ld",MasInfinito);
+        printf("Ingreso un dni mayor al limite. Limite %ld\n",MasInfinito);
         system("pause");
         return;
     }
@@ -216,7 +214,7 @@ void consultarPrestador(LSO *lista){
 int lecturaDatos(LSO *lso) {
     Prestador aux;
     FILE *fp;
-    int rep = 0, res = 2 , cont =0;
+    int rep = 0, res = 2 , cont =0, limiteExcedido = 0;
     if ((fp = fopen("Prestadores.txt", "r")) == NULL) {
         printf("Hubo un error con la lectura del archivo.\n");
         system("pause");
@@ -259,12 +257,18 @@ int lecturaDatos(LSO *lso) {
             return 1;
             break;
         case 3:
-            printf("Error. Se quiso ingresar un dato mayo al limite.(%ld)",MasInfinito);
+            if (!limiteExcedido) {
+                printf("Se intento ingresar uno o varios prestadores con dni mayor al limite permitido.\n");
+                limiteExcedido = 1;
+            }
         }
     }
     if(cont>0)
         printf("Se cargo %d prestador/es en la lista.\n",cont);
-    if(cont > rep)
+    else
+        printf("No se cargo ningun prestador\n");
+
+    if(rep > 0)
         printf("Hubo %d prestador/es no cargado/s repetido/s\n",rep);
     system("pause");
     fclose(fp);
