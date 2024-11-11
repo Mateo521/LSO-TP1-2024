@@ -32,7 +32,7 @@ int localizarLSO(LSO *lista, int *pos, long dni_x) {
 
 int altaLSO(LSO *lista, Prestador prestador) {
     int pos = 0, i = 0;
-    if (prestador.dni >= MasInfinito || lista->contador >= MAX_prestadores - 1) {
+    if (prestador.dni >= MasInfinito || lista->contador >= MAX_prestadores - 1 || prestador.dni <=0) {
         if(lista->contador >= MAX_prestadores - 1)
                 return 2;
         return 3;

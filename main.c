@@ -120,8 +120,8 @@ void eliminarPrestador(LSO *lista) {
     long dniAux;
     printf("Ingrese el DNI del prestador:");
     scanf("%ld",&dniAux);
-    if(dniAux >= MasInfinito){
-        printf("Ingreso un dni mayor al limite. Limite %ld\n",MasInfinito);
+    if(dniAux >= MasInfinito || dniAux <= 0){
+        printf("Ingreso un dni mayor  o menor al limite. Limite maximo %ld y Limite minimo 0\n",MasInfinito);
         system("pause");
         return;
     }
@@ -169,8 +169,8 @@ void modificarPrestador(LSO *lista) {
 
     printf("Ingrese el DNI del prestador:");
     scanf("%ld",&dniAux);
-    if(dniAux >= MasInfinito){
-        printf("Ingreso un dni mayor al limite. Limite %ld\n",MasInfinito);
+    if(dniAux >= MasInfinito || dniAux <= 0){
+        printf("Ingreso un dni mayor  o menor al limite. Limite maximo %ld y Limite minimo 0\n",MasInfinito);
         system("pause");
         return;
     }else{
@@ -194,8 +194,8 @@ void consultarPrestador(LSO *lista){
     }
     printf("Ingrese el DNI del prestador:");
     scanf("%ld",&dniAux);
-    if(dniAux >= MasInfinito){
-        printf("Ingreso un dni mayor al limite. Limite %ld\n",MasInfinito);
+    if(dniAux >= MasInfinito || dniAux <= 0){
+        printf("Ingreso un dni mayor  o menor al limite. Limite maximo %ld y Limite minimo 0\n",MasInfinito);
         system("pause");
         return;
     }else{
