@@ -104,7 +104,7 @@ void insertarPrestador(LSO *lista) {
     }else if(exito == 0) {
         printf("EL prestador ya se encuentra en la lista\n");
     }else {
-        printf("El elemento que quiso ingresar, supera el limite admitido (DNI MAX 99.999.998) \n");
+        printf("El elemento que quiso ingresar, supera el limite admitido (DNI MAX 99.999.998) o menor que el admitido (DNI MIN 0) \n");
     }
     system("pause");
     system("cls");
@@ -143,6 +143,8 @@ void mostrarListaPrestador(LSO *lista)
     int i;
     if(lista->contador == 0){
         printf("Error al mostrar.Lista vacia\n");
+         system("pause");
+            system("cls");
         return;
     }
     for (i = 0; i < lista->contador; i++)

@@ -35,3 +35,15 @@
 
 1725906218 j:\uni\eda\eda-4ta cursada\tp1\lso-tp1-2024\prestadores.h
 
+1731376791 source:c:\users\mateo\desktop\lso-tp1-2024\main.c
+	<stdio.h>
+	<stdlib.h>
+	"LSO.h"
+	<string.h>
+
+1731376538 c:\users\mateo\desktop\lso-tp1-2024\lso.h
+	"Prestadores.h"
+	<string.h>
+
+1731376323 c:\users\mateo\desktop\lso-tp1-2024\prestadores.h
+
